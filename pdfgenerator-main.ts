@@ -23,9 +23,11 @@ const generateWorkers = (numberOfWorkers: number) => {
     }
     return workers;
 }
-const workers = generateWorkers(1000);
+const workers = generateWorkers(500);
 
 let numberOfFiles = 0;
+const fullStart = new Date();
+console.log(`Started building a queue at ${fullStart.toISOString()}`);
 workers.forEach(worker => {
     let start = new Date();
     worker.on("online", () => {
@@ -51,5 +53,7 @@ workers.forEach(worker => {
         worker.off("exit", () => {});
         console.log(`Finished processing data at ${end.toISOString()}, time taken = ${end.getTime() - start.getTime()}ms`);
         console.log(`Processed ${numberOfFiles} files.`);
+        const fullEnd = new Date();
+        console.log(`Finished rendering the queue at ${fullEnd.toISOString()}, time taken ${fullEnd.getTime() - fullStart.getTime()}ms`);
     })
 });
