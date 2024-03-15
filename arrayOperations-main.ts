@@ -8,6 +8,9 @@ const generateData = (numberOfItems: number) => {
             }
         });
         const result: number[] = [];
+        worker.on("online", () => {
+            console.log("Started generating data");
+        });
         worker.on("message", (data) => result.push(data));
         worker.on("messageerror", (error) => {
             console.error(error);
@@ -18,7 +21,12 @@ const generateData = (numberOfItems: number) => {
             rej(error);
         });
         worker.on("exit", () => {
-            console.log("Finished generating data")
+            worker.off("online", () => {});
+            worker.off("message", () => {});
+            worker.off("messageerror", () => {});
+            worker.off("error", () => {});
+            worker.off("exit", () => {});
+            console.log("Finished generating data");
             res(result);
         });
     });
@@ -32,6 +40,9 @@ const filterData = (inputArray: number[]) => {
             }
         });
         const result: number[] = [];
+        worker.on("online", () => {
+            console.log("Started filtering data");
+        });
         worker.on("message", (data) => result.push(data));
         worker.on("messageerror", (error) => {
             console.error(error);
@@ -42,6 +53,11 @@ const filterData = (inputArray: number[]) => {
             rej(error);
         });
         worker.on("exit", () => {
+            worker.off("online", () => {});
+            worker.off("message", () => {});
+            worker.off("messageerror", () => {});
+            worker.off("error", () => {});
+            worker.off("exit", () => {});
             console.log("Finished filtering data");
             res(result);
         });

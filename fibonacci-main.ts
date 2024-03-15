@@ -8,11 +8,19 @@ const getFibonacci = (number: number) => {
             }
         });
         let result = 0;
+        worker.on("online", () => {
+            console.log("Started generating fibonacci number order " + number);
+        });
         worker.on("message", (data) => {result = data});
         worker.on("messageerror", (error) => {rej(error)});
         worker.on("error", (error) => {rej(error)});
         worker.on("exit", () => {
             console.log("Finished generating fibonacci number order " + number);
+            worker.off("online", () => {});
+            worker.off("message", () => {});
+            worker.off("messageerror", () => {});
+            worker.off("error", () => {});
+            worker.off("exit", () => {});
             res(result);
         });
     });

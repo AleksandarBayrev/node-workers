@@ -26,9 +26,12 @@ const generateWorkers = (numberOfWorkers: number) => {
 const workers = generateWorkers(1000);
 
 let numberOfFiles = 0;
-const start = new Date();
-console.log(`Started processing data at ${start.toISOString()}`);
 workers.forEach(worker => {
+    let start = new Date();
+    worker.on("online", () => {
+        start = new Date();
+        console.log(`Started processing data at ${start.toISOString()}`);
+    });
     worker.on("message", async (data) => {
         numberOfFiles++;
     });
@@ -41,6 +44,11 @@ workers.forEach(worker => {
     });
     worker.on("exit", () => {
         const end = new Date();
+        worker.off("online", () => {});
+        worker.off("message", () => {});
+        worker.off("messageerror", () => {});
+        worker.off("error", () => {});
+        worker.off("exit", () => {});
         console.log(`Finished processing data at ${end.toISOString()}, time taken = ${end.getTime() - start.getTime()}ms`);
         console.log(`Processed ${numberOfFiles} files.`);
     })

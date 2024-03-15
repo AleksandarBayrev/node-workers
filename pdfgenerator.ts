@@ -5,6 +5,8 @@ const buffers: Buffer[] = [];
 const document = new PDFDocument();
 document.on("data", (buffer) => buffers.push(buffer));
 document.on("end", () => {
+    document.off("data", () => {});
+    document.off("end", () => {});
     parentPort?.postMessage(buffers);
 });
 workerData.data.forEach((x: {name: string;age: number;}) => {
