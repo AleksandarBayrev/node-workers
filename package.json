@@ -12,10 +12,12 @@
     "@types/node": "^20.11.27",
     "@types/os-utils": "^0.0.4",
     "@types/pdfkit": "^0.13.4",
+    "@types/pg": "^8.11.4",
     "pdfkit": "^0.14.0",
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "os-utils": "^0.0.14"
+    "os-utils": "^0.0.14",
+    "pg": "^8.11.3"
   }
 }
