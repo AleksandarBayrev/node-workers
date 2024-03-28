@@ -1,0 +1,9 @@
+{
+    "host": "192.168.122.180",
+    "user": "postgres",
+    "password": "WS-2022-PGSQL",
+    "port": 5432,
+    "database": "caches",
+    "keepAlive": true,
+    "application_name": "CacheSystem"
+}
