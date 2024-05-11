@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "bundle:cpu-stress": "npm run build && webpack --config cpu-stress.webpack.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,8 +14,11 @@
     "@types/os-utils": "^0.0.4",
     "@types/pdfkit": "^0.13.4",
     "@types/pg": "^8.11.4",
+    "@webpack-cli/generators": "^3.0.7",
     "pdfkit": "^0.14.0",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.2",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "os-utils": "^0.0.14",
