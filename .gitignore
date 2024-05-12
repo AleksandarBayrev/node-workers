@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # Exclude builded js files
-*.js
+build/

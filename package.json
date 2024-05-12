@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "bundle:cpu-stress": "npm run build && webpack --config cpu-stress.webpack.config.js"
+    "bundle:cpu-stress": "npm run build && webpack --config ./webpack/cpu-stress.webpack.config.js"
   },
   "author": "",
   "license": "ISC",
