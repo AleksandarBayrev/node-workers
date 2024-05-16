@@ -1,6 +1,7 @@
-import fetch from "cross-fetch"
-const getRequest = (body: {text: string}) => {
-    return fetch("http://localhost:3000", {
+import fetch from "cross-fetch";
+import {v4} from "uuid";
+const getRequest = (body: {id: string, data: string}[]) => {
+    return fetch("http://localhost:5225", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -9,16 +10,21 @@ const getRequest = (body: {text: string}) => {
     });
 }
 const sleep = (timeout: number) => new Promise((res, rej) => setTimeout(res, timeout));
-const getRequests = () => {
+const sendData = () => {
     const requests = [];
-    for (let i = 0; i < 50; i++) {
-        requests.push(getRequest({text: i.toString()}));
+    for (let i = 0; i < 50000; i++) {
+        requests.push({id: v4(), data: i.toString()});
     }
-    return requests;
+    return getRequest(requests);
+}
+const getData = async () => {
+    const data = await fetch("http://localhost:5225").then(x => x.json());
+    console.log(data.length);
 }
 (async () => {
     while (true) {
-        await Promise.all(getRequests());
+        // await sendData();
+        await getData();
         await sleep(100);
         console.log(`Done => ${new Date().toISOString()}`);
     }
